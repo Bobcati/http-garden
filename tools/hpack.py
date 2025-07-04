@@ -5,6 +5,16 @@ def serialize_prefix_int(i: int, prefix_len: int, padding: int = 0, preprefix: i
 
     result: bytes = bytes([preprefix << (prefix_len % 8)])
     if i < ((1 << prefix_len) - 1):
+        return (result += bytes(i)) #is little endian encoding needed?
+    else:
+        result += int.to_bytes((1 << prefix_len) - 1) #Not sure about this line
+        i = i - ((1 << prefix_len) - 1)
+        while (i >= 128):
+            result += bytes([(i) % 128 + 128]) #not sure how to implement "on 8 bits"
+                                #Also need to add the 1 bit prefix
+            i = i / 128 
+        return result
+
         
 
 
