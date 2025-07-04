@@ -40,6 +40,12 @@ def parse_prefix_int(data: bytes, prefix_len: int) -> int:
     else:
         assert False
     return result
+#TESTING 
+for i in range(30):
+    serialized = serialize_prefix_int(i, 7, 0, 0)
+    print("Serializing: " + str(i))
+    deserialized = parse_prefix_int(serialized, 5) 
+    print("Deserialized result: " + str(deserialized) + "\n")
 
 class FieldBlockFragment:
     pass
